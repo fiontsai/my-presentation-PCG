@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI 輔助工作學習 Roadmap｜部門內訓簡報</title>
+<style>
+  :root{
+    --bg:#0b0f19;
+    --card:#111826;
+    --ink:#e6eefc;
+    --muted:#a9b4c9;
+    --accent:#7aa2ff;
+    --accent-2:#58d1c9;
+    --ok:#7dd87d;
+    --warn:#ffd37a;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --radius: 18px;
+    --gap: 16px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    color:var(--ink);
+    background:radial-gradient(1200px 600px at 10% 10%, #111a2b 0%, #0b0f19 50%, #0b0f19 100%);
+    letter-spacing:.2px;
+  }
+  /* Slides layout */
+  .deck{
+    position:relative;
+    height:100vh;
+    overflow:hidden;
+  }
+  .slide{
+    position:absolute;
+    inset:0;
+    padding:64px 7vw 72px;
+    display:grid;
+    grid-template-rows:auto 1fr;
+    gap:20px;
+    background:transparent;
+    opacity:0;
+    transform: translate3d(40px,0,0) scale(.98);
+    transition: opacity .45s ease, transform .45s ease;
+    pointer-events:none;
+  }
+  .slide.active{
+    opacity:1;
+    transform: translate3d(0,0,0) scale(1);
+    pointer-events:auto;
+  }
+  header h1 {
+    margin:0 0 10px 0;
+    font-size:52px;
+  }
+  header h2{
+    margin:0 0 10px 0;
+  }
+  header .subtitle{color:var(--muted); font-size:16px}
+  .content{
+    overflow:auto;
+  }
+  
+  .header-subtitle{color:var(--muted); font-size:16px}
+  .white-link {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+  /* Cards */
+  .cards{
+    display:grid;
+    grid-template-columns: repeat(12,1fr);
+    gap:var(--gap);
+  }
+  .card{
+    grid-column: span 4;
+    background:linear-gradient(180deg, #121b2b 0%, #0f1624 100%);
+    border:1px solid rgba(122,162,255,.18);
+    border-radius: var(--radius);
+    padding:22px;
+    box-shadow: var(--shadow);
+  }
+  .card h3{margin:.2rem 0 0.6rem 0; font-size:20px}
+  .tag{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:999px;
+    background:rgba(122,162,255,.12);
+    border:1px solid rgba(122,162,255,.32);
+    color:#cfe0ff;
+    font-size:12px;
+    margin-bottom:10px;
+  }
+  ul{margin:0; padding-left:20px}
+  li{margin:6px 0}
+
+  /* Timeline table */
+  .table{width:100%; border-collapse:collapse; border-spacing:0; overflow:hidden; border-radius:var(--radius); box-shadow:var(--shadow)}
+  .table th,.table td{padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.06); vertical-align:top}
+  .table th{background:rgba(122,162,255,.12); text-align:left; color:#dbe6ff; position:sticky; top:0}
+  .table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .kpi{display:grid; grid-template-columns:repeat(12,1fr); gap:var(--gap); margin-top:10px}
+  .chip{grid-column: span 3; background:rgba(88,209,201,.1); border:1px solid rgba(88,209,201,.35); padding:10px 12px; border-radius:12px; font-size:13px}
+  .chip b{display:block; font-size:12px; color:#c7fffb; margin-bottom:4px}
+
+  /* Nav */
+  .nav{
+    position:absolute; inset:auto 0 16px 0;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    pointer-events:none;
+  }
+  .btn{
+    pointer-events:auto;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.06);
+    backdrop-filter: blur(6px);
+    color:var(--ink); padding:10px 14px; border-radius:12px; cursor:pointer;
+  }
+  .btn:active{transform:translateY(1px)}
+  .dots{display:flex; gap:6px; align-items:center}
+  .dot{
+    width:9px; height:9px; border-radius:999px; background:rgba(255,255,255,.2);
+    border:1px solid rgba(255,255,255,.35);
+  }
+  .dot.active{background:var(--accent)}
+
+  /* Utilities */
+  .grid-2{display:grid; grid-template-columns: 1fr 1fr; gap:var(--gap)}
+  .muted{color:var(--muted)}
+  .accent{color:var(--accent)}
+  .accent2{color:var(--accent-2)}
+  .ok{color:var(--ok)}
+  .warn{color:var(--warn)}
+
+  /* Responsive */
+  @media (max-width: 1000px){
+    .card{grid-column: span 12}
+    .chip{grid-column: span 6}
+    .grid-2{grid-template-columns: 1fr}
+  }
+
+  /* Print/PDF */
+  @media print{
+    .nav{display:none}
+    .slide{position:relative; page-break-after:always; opacity:1 !important; transform:none !important}
+    body{background:white; color:#111}
+    .card{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- Slide 1: Title -->
+  <section class="slide active">
+    <header>
+      <h1>AI 輔助工作學習 Roadmap</h1>
+      <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div>
+    </header>
+    <div class="content grid-2">
+      <div>
+        <h2>對象現況</h2>
+        <ul class="muted">
+          <li>2/3 有程式基礎，SQL 中等；1/3 有前端 HTML/CSS/JS 經驗</li>
+          <li>常用工具：Excel、PowerPoint、Draw.io、Word</li>
+          <li>AI 使用度：一半未用過；一半僅查答案；1–2 人用過產出文件</li>
+          <li>英語閱讀能力：中等以上</li>
+        </ul>
+        <div class="kpi">
+          <div class="chip"><b>資源</b>Azure OpenAI、內部 Dev AI 機器人</div>
+          <div class="chip"><b>節奏</b>每 2 週交流會 Demo 分享</div>
+          <div class="chip"><b>產出</b>每階段皆需可交付作品</div>
+          <div class="chip"><b>語言</b>全程繁體中文教材/產出</div>
+        </div>
+      </div>
+      <div>
+        <h2>6 個月總覽</h2>
+        <ul>
+          <li><b class="accent">短期（0–1M）</b>：AI 輔助流程圖 / SQL / 簡報</li>
+          <li><b class="accent2">中期（2–4M）</b>：AI 生成前端雛形頁面</li>
+          <li><b class="ok">長期（4–6M）</b>：AI Bot + Power BI 儀表板</li>
+        </ul>
+        <p class="muted">採 <b>Level 1→2→3</b> 技能分級；每階段設有任務、作品、評估標準。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 2: Timeline -->
+  <section class="slide">
+    <header>
+      <h1>AI 輔助工作學習 Roadmap</h1>
+      <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div>
+     </header>
+    <div class="content">
+      <h2>Roadmap 時間軸與里程碑</h2>
+      <div class="header-subtitle">以雙週 Demo 為節點進行驗收
+      </div>
+      <br/>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>階段</th>
+            <th>時間範圍</th>
+            <th>技能里程碑</th>
+            <th>必交作品</th>
+            <th>驗收指標</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Level 1：基礎應用</td>
+            <td>0–1 個月</td>
+            <td>AI 輔助畫流程圖、撰寫 SQL、生成規格書、生成簡報(opetional)</td>
+            <td>2份流程圖（Draw.io）、3 條 SQL、一份規格書(一隻作業／一隻SP…)</td>
+            <td>準確性 ≥90%、可讀性、需求覆蓋度</td>
+          </tr>
+          <tr>
+            <td>Level 2：半自動化</td>
+            <td>2–4 個月</td>
+            <td>依規格由 AI 生成 G2頁面的HTML/CSS/JS 雛形並調整</td>
+            <td>G2雛型頁面 Demo（1-3 個頁面）+ 規格對照表</td>
+            <td>可運行、UI 一致性、與規格符合度 ≥85%</td>
+          </tr>
+          <tr>
+            <td>Level 3：AI 協作開發</td>
+            <td>4–6 個月</td>
+            <td>AI Bot（Azure OpenAI）與 Power BI 儀表板</td>
+            <td>可用 Bot（FAQ / 檔內搜尋）+ 1 份 BI Dashboard</td>
+            <td>Bot 命中率/解決率、BI 指標正確率 ≥90%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Slide 3: Level Cards -->
+  <section class="slide">
+    <header>
+      <h1>AI 輔助工作學習 Roadmap</h1>
+      <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div>
+      
+    </header>
+    <div class="content">
+      <h2>AI 技能分級卡片</h2>
+      <div class="header-subtitle">Level 1 → Level 2 → Level 3</div><br/>
+      <div class="cards">
+        <div class="card">
+          
+          <span class="tag">Level 1｜基礎應用（0–1M）</span>
+          <h3>會用 AI 產出文件與查詢</h3>
+          <ul>
+            <li>用 AI 產出流程圖步驟與圖例（Draw.io）</li>
+            <li>從需求句子生成 SQL，並優化索引/條件</li>
+            <li>生成規格書、簡報(opetional)，套用結構模板</li>
+          </ul>
+          <p class="muted">完成標準：可獨立依需求完成文件/SQL/規格書or簡報。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Level 2｜半自動化（2–4M）</span>
+          <h3>能將 AI 產出整合至前端</h3>
+          <ul>
+            <li>依規格由 AI 生成G2頁面的 HTML/CSS/JS 雛形</li>
+            <li>串接 Mock API / 真實 API(已有現成的話)</li>
+            <li>建立樣式規範與元件化（表單、表格）</li>
+          </ul>
+          <p class="muted">完成標準：可運行的 Demo，與規格符合度 ≥85%。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Level 3｜AI 協作開發（4–6M）</span>
+          <h3>能交付 AI Bot 與 BI 儀表板</h3>
+          <ul>
+            <li>使用 Azure OpenAI 建立 一處/專案/特定系統 Bot</li>
+            <li>使用 Azure OpenAI 建立 AI Agent(otpional)</li>
+            <li>打造 Superset 儀表板與資料模型(配合數據中台建置)</li>
+            <li>設計評估：Bot 命中率、BI 指標正確率</li>
+          </ul>
+          <p class="muted">完成標準：可用 Bot or AI Agent(otpional)+ 1 份正式 BI報表</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4: 課程與練習 -->
+  <section class="slide">
+    <header>
+     <h1>AI 輔助工作學習 Roadmap</h1>
+      <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div><br/>
+     
+    </header>
+    <div class="content">
+      <h2>課程內容 × 練習題目 × 評估方法</h2>
+      <div class="header-subtitle">結合日常專案情境的實作導向</div>
+      <div class="cards">
+        <div class="card">
+          <span class="tag">Level 1</span>
+          <h3>基礎應用</h3>
+          <ul>
+            <li><b>課程</b>：AI 工具上手、Prompt 工程、需求到 SQL</li>
+            <li><b>練習</b>：用 AI 繪製專案流程、產 3 條 SQL、10 頁簡報</li>
+            <li><b>評估</b>：需求覆蓋、SQL 正確性、簡報結構</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Level 2</span>
+          <h3>半自動化</h3>
+          <ul>
+            <li><b>課程</b>：AI 生成前端、API 串接、UI 範式</li>
+            <li><b>練習</b>：3 頁 Demo、Mock/真實 API 接入</li>
+            <li><b>評估</b>：可運行性、UI 一致性、規格符合度</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">Level 3</span>
+          <h3>AI 協作開發</h3>
+          <ul>
+            <li><b>課程</b>：Azure OpenAI Bot、Power BI 模型/視覺</li>
+            <li><b>練習</b>：FAQ Bot + 1 份部門 KPI 儀表板</li>
+            <li><b>評估</b>：命中率、解決率、BI 指標正確率</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 5: 雙週節奏與治理 -->
+  <section class="slide">
+    <header>
+      <h1>AI 輔助工作學習 Roadmap</h1>
+        <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div>
+      
+    </header>
+    <div class="content">
+      <h2>落地節奏與治理</h2>
+        <div class="header-subtitle">每 2 週 Demo、知識庫沉澱、範本化</div><br/>
+      <div class="cards">
+        <div class="card">
+          <span class="tag">節奏</span>
+          <h3>雙週 Demo + 迭代</h3>
+          <ul>
+            <li>第 2/4/6/8/10/12 週：Demo 與回饋</li>
+            <li>每次 Demo 提交：作品、說明文件、回饋表</li>
+            <li>以專案任務驅動，避免脫離實務</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">知識庫</span>
+          <h3>模板與最佳實務</h3>
+          <ul>
+            <li>建立 Prompt 範本庫（SQL / 流程 / 文件or簡報 / 前端）</li>
+            <li>程式/文件命名規範、版本控管（Git / OneDrive）</li>
+            <li>失敗案例回顧（Fail-to-Learn）</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="tag">度量</span>
+          <h3>KPI 與品質門檻</h3>
+          <ul>
+            <li>節省時數、一次過件率、缺陷密度</li>
+            <li>Bot 命中率/解決率、BI 指標準確率</li>
+            <li>學習徽章：L1/L2/L3 通關證明</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 6: 收尾 -->
+  <section class="slide">
+    <header>
+    <h1>AI 輔助工作學習 Roadmap</h1>
+      <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div>
+    
+    </header>
+    <div class="content">
+      <h2>下一步</h2>
+      <div class="header-subtitle">立即起跑，四件事</div><br/>
+      <ol>
+        <li>分組：每4-5人一組</li>
+        <li>確認 <b>Azure OpenAI / Dev AI</b> 開通、使用指引，自學 <a href="https://pcggit-page.pouchen.com/devops/training/pages/" target="_blank" class="white-link">
+  先修課程
+</a>先修課程</a></font-color></b></li>
+        <li>發佈 <b>Level 1 任務包</b>（流程圖、SQL、簡報模板與示例 Prompt）</li>
+        <li>建立 <b>雙週 Demo</b> 時程與提交清單</li>
+        <li>啟用 <b>知識庫與範本庫</b>（持續沉澱、版本化）</li>
+      </ol>
+      
+    </div>
+  </section>
+
+
+  <!-- Slide X: Level 1 任務包＋Prompt 範本庫 -->
+  <section class="slide">
+    <header>
+      <h1>AI 輔助工作學習 Roadmap</h1>
+        <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div>
+      
+    </header>
+    <div class="content">
+      <h2>Level 1 任務包 ＋ Prompt 範本庫</h2>
+        <div class="header-subtitle">適用對象：系統規劃/分析人員（第 0–4 週）</div><br/>
+
+      <div class="cards">
+        <div class="card" style="grid-column: span 12">
+          <span class="tag">任務包內容（交付物）</span>
+          <ul>
+            <li><b>流程圖</b>：1 份核心流程（包含泳道與例外分支），檔案格式 .drawio/.png</li>
+            <li><b>SQL</b>：3 條查詢（CRUD 至少各 1），含索引/Explain 分析與優化建議</li>
+            <li><b>簡報</b>：10 頁提案/教學簡報（封面/目錄/痛點/方案/流程/資料設計/風險/時程/KPI/結語）</li>
+            <li><b>提交說明</b>：需求摘要、使用的 Prompt、AI 產出後的人工作業清單</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="tag">Prompt：流程圖（Draw.io）</span>
+<pre style="white-space:pre-wrap; font-size:12px; line-height:1.4; background:rgba(0,0,0,.35); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12)">
+你是資深系統分析師，請根據以下需求生成「流程步驟清單」與「泳道圖元素清單」，用標準 BPMN 名詞，並附上圖例建議。
+【專案名稱】{{project_name}}
+【對象/泳道】{{swimlanes}}（例如：使用者、前端、後端、DB、第三方）
+【需求摘要】{{requirements}}
+輸出格式：
+1) 流程步驟（序號＋動詞開頭＋條件分支）
+2) 泳道圖元素（節點類型、名稱、說明、連線關係）
+3) Draw.io 圖層規劃與配色建議
+</pre>
+          <p class="muted">小技巧：請 AI 先產「元素清單」再手動或用外掛導入 Draw.io。</p>
+        </div>
+
+        <div class="card">
+          <span class="tag">Prompt：SQL 產出與優化</span>
+<pre style="white-space:pre-wrap; font-size:12px; line-height:1.4; background:rgba(0,0,0,.35); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12)">
+你是資料庫設計師。請依需求產出 SQL（以 {{db_type}} 為主，例如 SQL Server / PostgreSQL），並提供索引與 Explain 優化建議。
+【資料表結構】{{tables_schema}}
+【需求敘述】{{query_requirements}}
+請輸出：
+A. 基礎查詢 SQL（含註解）
+B. 可能的索引（含欄位順序與理由）
+C. Explain/EXPLAIN ANALYZE 觀察重點與替代寫法
+D. 邊界情境測試資料（5 筆）
+</pre>
+          <p class="muted">評估：可執行、成本可被 Explain 驗證、並覆蓋需求邊界。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Prompt：資料表設計（正規化＋命名）</span>
+<pre style="white-space:pre-wrap; font-size:12px; line-height:1.4; background:rgba(0,0,0,.35); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12)">
+你是資料模型師。請依需求產出實體關係（ER）清單、命名規範與主外鍵設計，並給出建立表格的 SQL。
+【需求摘要】{{requirements}}
+請輸出：
+1) 實體與屬性（英文小駝峰命名、欄位型別）
+2) 主鍵/外鍵與唯一性約束
+3) 正規化說明（達成 3NF 並說明例外）
+4) DDL（CREATE TABLE …）與索引
+</pre>
+        </div>
+        <div class="card">
+          <span class="tag">Prompt：規格書生成</span>
+<pre style="white-space:pre-wrap; font-size:12px; line-height:1.4; background:rgba(0,0,0,.35); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.12)">
+你是「資深系統分析師＋規格書編寫教練」。請依下列輸入，產出一份「可交付的系統規格書（SRS）」，要求：以繁體中文、Markdown 排版、章節完備、表格清晰、可直接交付研發/測試/上線使用。
+【系統名稱】{{system_name}}
+【文件用途】{{doc_purpose}}（例如：對外發包/內部開發/驗收依據）
+【受眾】{{audience}}（例如：PM、SA、Developer、DBA、QA、Trainer）
+【範疇】{{scope}}
+【排除範疇】{{out_of_scope}}
+【利害關係人】{{stakeholders}}
+【合規/稽核】{{compliance}}（例如：資安、個資、ISO、法規）
+【命名規範】{{naming_rules}}（例如：資料表/欄位/API 命名）
+【資料庫類型】{{db_type}}（例如：SQL Server / PostgreSQL）
+【現況痛點】{{pain_points}}
+【需求摘要】{{requirements}}
+【使用者角色/Persona】{{personas}}
+【上下游整合/介接系統】{{integrations}}
+【非功能性目標】{{nfr_targets}}（效能、可用性、容量、SLA）
+【時程與里程碑】{{timeline}}
+【KPI/驗收指標】{{kpi}}
+【素材/附件】{{materials}}
+=== 請輸出以下章節（Markdown） ===
+1. 封面與修訂史  
+   - 文件版本、日期、作者、審核人、修訂紀錄（表格）
+
+2. 摘要與目標  
+   - 系統願景、商業目標、成功衡量（KPI 對應）
+
+3. 名詞定義與縮寫  
+   - Domain 名詞、縮寫說明（表格：詞彙/定義/備註）
+
+4. 系統範疇與邊界  
+   - In/Out of Scope 條列、上下游系統關係文字描述（可附簡圖說明）
+
+5. 使用者角色與權限矩陣  
+   - 角色列表、責任、權限（表格：Role/功能/CRUD/備註）
+
+6. 需求分解（BRD → FRD）  
+   - 商業需求（BR）→ 功能需求（FR）對照表  
+   - 業務規則（Business Rules）條列
+
+7. 業務流程（BPMN 文字化）  
+   - 以「步驟清單＋泳道元素清單」描述流程，含例外/邊界情境  
+   - 格式：
+     - 流程步驟：編號、敘述（動詞開頭）、分支條件
+     - 泳道元素：節點類型/名稱/說明/前後關係
+   - （若需圖檔：請附 draw.io 圖層規劃與節點列表）
+
+8. 介面/頁面規格（UI Spec）  
+   - 以頁面為單位列出：目的、使用者動線、元件  
+   - 表格：欄位/型別/長度/格式/驗證規則/預設值/是否必填/提示文/錯誤訊息
+
+9. 資料模型與資料字典  
+   - 實體（表）清單、主外鍵關係、正規化說明（達成 3NF 的理由/例外）  
+   - 資料字典表格：表名/欄位/型別/PK/FK/唯一/允空/描述  
+   - 產出對應 {{db_type}} 的 DDL（`CREATE TABLE`＋索引），放在 ```sql 區塊
+
+10. API 規格（REST/GraphQL 擇一或並列）  
+    - 路徑/方法/用途、Request Params、Request/Response JSON Schema、狀態碼與錯誤碼  
+    - 範例：以 ```json 區塊提供
+
+11. 整合介面與事件（MQ/Webhook/ETL）  
+    - Topic/Queue/事件結構、重試/去重/冪等性策略、時序與一致性  
+    - 資料交換頻率、批次窗口、失敗補償流程（文字步驟）
+
+12. 非功能性需求（NFR）  
+    - 效能（TP95、QPS、批次 SLA）、容量規劃、可用性、備援、高可用/容錯  
+    - 監控 KQI/KPI、告警閾值與處置SOP
+
+13. 安全與合規  
+    - RBAC 權限模型、資料分級與遮罩、審計 Log 欄位與保留政策  
+    - 傳輸/靜態加密、密鑰輪替、隱私/個資合規要點
+
+14. 驗收準則與測試案例  
+    - 每個功能的驗收條件以 Gherkin（Given-When-Then）撰寫  
+    - UAT 測試案例表、邊界/例外測試、資料品質校驗
+
+15. 部署與遷移計畫  
+    - 環境（Dev/Test/Staging/Prod）、版本控管、滾動/藍綠/金絲雀發布  
+    - 資料遷移步驟、回滾策略、相依服務切換方案
+
+16. 風險與緩解  
+    - 風險清單（表格：風險/等級/影響/機率/緩解/備援）
+
+17. PoC（如適用）  
+    - PoC 範圍、成功門檻、時間盒、驗收指標、銜接正式版路徑
+
+18. 附錄  
+    - 命名規範、畫面元件庫、Prompt 範本、參考文件連結
+
+=== 輸出規範 ===
+- 全文使用繁體中文。  
+- 以 Markdown 呈現所有章節；清單與表格必要且完整。  
+- SQL 與 JSON 放入對應語言的三引號程式碼區塊。  
+- 不可憑空捏造未知資訊；遇缺資料以「TODO/待確認」列點，並在文末輸出「需求澄清清單」。  
+- 於文末輸出「品質檢查清單 (Checklist)」：可追蹤性、完整性、一致性、可測試性、安全性覆蓋、NFR 覆蓋。
+</pre>
+          <p class="muted">可要求輸出為可下載的word檔格式</p>
+        </div>
+
+        <div class="card">
+          <span class="tag">安全與合規（Azure OpenAI）</span>
+          <ul>
+            <li>避免投入個資/商業機密；必要時使用去識別化資料</li>
+            <li>保留 Prompt 與輸出版本於 Git/雲端；提交時附「人工修訂點」</li>
+            <li>參照內部 Dev AI 使用準則：Token 成本、敏感詞清單、輸出分類</li>
+          </ul>
+          <p class="muted">建議建立「Prompt 使用紀錄」欄位：需求ID、日期、模型、成本、結果摘要。</p>
+        </div>
+        <div class="card">
+          <span class="tag">Prompt Engineering小秘訣：叫AI教我們優化Prompt</span>
+          <ul>
+            <li>請將 [原始 prompt 文字] 寫成一個厲害的 prompt（power prompt），並附上修改建議與解釋。</li>
+            <li>[原始 prompt 文字] 這是我的需求，你有什麼問題想問我，以便你改寫一個更好的版本？</li> </br>
+            <li><a href="https://www.bnext.com.tw/article/84076/ai-prompt-gemini-for-workspace" target="_blank" class="white-link">Google公布AI提示萬用公式！掌握「21字黃金法則」：先穩80分基本功再求好</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+<!-- Slide X: Level 2 任務包＋Prompt 範本庫 -->
+  <section class="slide">
+    <header>
+      <h1>AI 輔助工作學習 Roadmap</h1>
+      <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div>
+      
+    </header>
+    <div class="content">
+      <h2>Level 2 任務包</h2><br/>
+      <div class="subtitle">適用對象：具基礎應用能力者（第 5–16 週）</div>
+      <div class="cards">
+        <div class="card" style="grid-column: span 12">
+          <span class="tag">任務包內容（交付物）</span>
+          <ul>
+            <li><b>前端 Demo</b>：至少 3 個頁面（清單、表單、明細），具響應式設計與一致導航</li>
+            <li><b>API 串接</b>：串接 1 個 Mock API 與 1 個真實 API（含錯誤處理與 Loading 狀態）</li>
+            <li><b>規格對照表</b>：規格欄位 × 頁面元件 × 驗證規則（表格）</li>
+            <li><b>設定檔</b>：環境變數（.env.sample）、API Base URL、金鑰載入方式</li>
+            <li><b>README</b>：啟動步驟、打包指令、已知限制與待辦</li>
+          </ul>
+        </div>
+  </section>  
+  <!-- Slide X: Level 3 任務包＋Prompt 範本庫 -->
+  <section class="slide">
+    <header>
+      <h1>AI 輔助工作學習 Roadmap</h1>
+      <div class="subtitle">部門內訓簡報 · 系統規劃/分析人員 · 6 個月養成</div>
+    </header>
+    <div class="content">
+      <h2>Level 3 任務包</h2><br/>
+      <div class="subtitle">適用對象：完成前端雛形者（第 17–24 週）</div>
+      <div class="cards">
+        <div class="card" style="grid-column: span 12">
+          <span class="tag">任務包內容（交付物）</span>
+          <ul>
+            <li><b>Azure OpenAI Bot</b>：可查詢部門文件（RAG），含對話歷程記錄、拒答/轉介策略</li>
+            <li><b>知識庫</b>：文件清單、萃取策略（分段/Chunk/Metadata）、更新流程</li>
+            <li><b>儀表板</b>：1 份 Power BI Dashboard（KPI、趨勢、鑽研），含資料模型與 DAX</li>
+            <li><b>評估報告</b>：Bot 命中率/解決率、延遲、錯誤類型；BI 指標正確率/刷新週期</li>
+          </ul>
+        </div>
+  </section>  
+  <!-- Nav -->
+  <div class="nav">
+    <button class="btn" id="prevBtn" aria-label="上一頁">← 上一頁</button>
+    <div class="dots" id="dots"></div>
+    <button class="btn" id="nextBtn" aria-label="下一頁">下一頁 →</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const deck = document.getElementById('deck');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const dots = document.getElementById('dots');
+  let idx = 0;
+
+  function renderDots(){
+    dots.innerHTML = '';
+    slides.forEach((_, i)=>{
+      const d = document.createElement('div');
+      d.className = 'dot' + (i===idx?' active':'');
+      d.addEventListener('click', ()=>go(i));
+      dots.appendChild(d);
+    });
+  }
+
+  function go(i){
+    slides[idx].classList.remove('active');
+    idx = (i+slides.length) % slides.length;
+    slides[idx].classList.add('active');
+    renderDots();
+  }
+
+  prevBtn.addEventListener('click', ()=>go(idx-1));
+  nextBtn.addEventListener('click', ()=>go(idx+1));
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') go(idx+1);
+    if(e.key === 'ArrowLeft') go(idx-1);
+  });
+
+  renderDots();
+})();
+</script>
+
+</body>
+</html>
