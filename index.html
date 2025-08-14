@@ -149,6 +149,30 @@
     body{background:white; color:#111}
     .card{box-shadow:none}
   }
+
+  /* Team cards */
+  .teams {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+
+  .team-card {
+    grid-column: span 4;
+    background:linear-gradient(180deg, #121b2b 0%, #0f1624 100%);
+    border:1px solid rgba(122,162,255,.18);
+    border-radius: var(--radius);
+    padding:22px;
+    box-shadow: var(--shadow);
+    min-width: 200px;
+    
+  }
+
+  .team-card h3{margin:.2rem 0 0.6rem 0; font-size:20px}
+  
+  .team-card ul {margin:0; padding-left:20px}
 </style>
 </head>
 <body>
@@ -185,9 +209,8 @@
           <li><b class="ok">長期（4–6M）</b>：AI Bot + Power BI 儀表板</li>
         </ul>
         <p class="muted">採 <b>Level 1→2→3</b> 技能分級；每階段設有任務、作品、評估標準。</p>
-      </div>
-    </div>
-  </section>
+        </div>
+     </section>
 
   <!-- Slide 2: Timeline -->
   <section class="slide">
@@ -386,9 +409,60 @@
         <li>發佈 <b>Level 1 任務包</b>（流程圖、SQL、簡報模板與示例 Prompt）</li>
         <li>建立 <b>雙週 Demo</b> 時程與提交清單</li>
         <li>啟用 <b>知識庫與範本庫</b>（持續沉澱、版本化）</li>
-      </ol>
-      
+      </ol>   
+      <!-- Team cards -->
+        <div class="teams">
+          <div class="team-card">
+            <span class="tag">Team1</span>
+            <ul>
+              <li>陳彥齊</li>
+              <li>盧佩吟</li>
+              <li>黃少谷</li>
+              <li>張婉瑜</li>
+            </ul>
+          </div>
+          <div class="team-card">
+             <span class="tag">Team2</span>
+            <ul>
+              <li>陳凱琴</li>
+              <li>傅中建</li>
+              <li>陳雪娟</li>
+              <li>林韋君</li>
+              <li>朱嬿如</li>
+            </ul>
+          </div>
+          <div class="team-card">
+            <span class="tag">Team3</span>
+            <ul>
+              <li>李姿瑩</li>
+              <li>游湘羚</li>
+              <li>葉曜彰</li>
+              <li>顏芸貞</li>
+            </ul>
+          </div>
+          <div class="team-card">
+            <span class="tag">Team4</span>
+            <ul>
+              <li>吳筱涵</li>
+              <li>黃宜珊</li>
+              <li>黃文良</li>
+              <li>柯佩吟</li>
+              <li>陳昱臻</li>
+            </ul>
+          </div>
+          <div class="team-card">
+            <span class="tag">Team5</span>
+            <ul>
+              <li>王藝惠</li>
+              <li>蔡燿駸</li>
+              <li>蔡青志</li>
+              <li>陳怡如</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+
   </section>
 
 
